@@ -39,13 +39,17 @@ const AdminLogin: React.FC = () => {
             reset();
         }
     } catch (error) {
-        if(axios.isAxiosError(error)) {
-            setServerErrors(error.response?.data.errors ?? {});
-            toast.error(error.response?.data.message || "Something went wrong!");
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          console.error("Server Error:", error.response.data);
+        } else if (error.request) {
+          console.error("Network Error:", error.message);
+        } else {
+          console.error("Request Error:", error.message);
         }
-        else {
-            toast.error("An unexpected error occurred.");
-        }
+      } else {
+        console.error("Unexpected Error:", error);
+      }
     }finally{
         setLoading(false)
     }

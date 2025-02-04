@@ -14,13 +14,13 @@ const Franchise = lazy(() => import('./page/Franchise'))
 const AdminLogin = lazy(() => import('./admin/page/Login'))
 const AdminHome = lazy(() => import('./admin/page/AdminHome'))
 
-
 function App() {
-  const loaction = useLocation()
-  const isAdminRoute = loaction.pathname.startsWith('/admin')
+  const location = useLocation()
+  const isAdminRoute = location.pathname.startsWith('/admin')
+  const isAdminLogin = location.pathname === '/admin/login'
   return (
     <>
-      {isAdminRoute ? <AdminNavbar /> : <Header />}
+      {isAdminLogin ? null : (isAdminRoute ? <AdminNavbar /> : <Header />)}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
