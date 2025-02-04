@@ -7,7 +7,6 @@ import OurTeamPage from './admin/page/OurTeamPage'
 import ProtectedRoute, { AdminLoginProtected } from './admin/page/ProtectedRoute'
 import './App.css'
 import Header from './components/Home/Header'
-import Test2 from './page/Test2'
 const Home = lazy(() => import('./page/Home'))
 const About = lazy(() => import('./page/About'))
 const Contact = lazy(() => import('./page/Contact'))
@@ -27,7 +26,6 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/franchise' element={<Franchise />} />
-        <Route path='/test' element={<Test2 />} />
         <Route path='*' element={<div className='mt-40'>404 Page Not Found</div>} />
 
         {/* Admin Route  */}

@@ -4,7 +4,7 @@ import {
   ShoppingBag,
   TrendingUp,
 } from "lucide-react";
-import { ServiceCard } from "../../page/Test2";
+import { ServiceCard } from "../../page/Services";
 
 export const OurSrviceS = () => {
   return (
