@@ -17,6 +17,7 @@ const OurTeamPage = () => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [AddmemberLoading, setAddmemberLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
 const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +48,7 @@ const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
   // 🔹 Handle Form Submit to Add Member
   const onSubmit = async (data: any) => {
+    setAddmemberLoading(true);
     try {
       const formData = new FormData();
   
@@ -62,8 +64,6 @@ const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           "Content-Type": "multipart/form-data",
         },
       });
-  
-      console.log(response.data);
       toast.success(response.data.message || "Team member added successfully!");
       setTeamMembers([...teamMembers, response.data.outTeam]);
   
@@ -73,7 +73,11 @@ const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data.message || "Something went wrong!");
+      }else {
+        toast.error("Internal Server Error!");
       }
+    }finally{
+      setAddmemberLoading(false);
     }
   };
   
@@ -137,10 +141,11 @@ const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
           {/* Submit Button */}
           <button
+          disabled={AddmemberLoading}
             type="submit"
-            className="w-full bg-[#ff6709] hover:bg-orange-500 text-white font-semibold py-2 px-4 rounded-lg transition"
+            className={`w-full bg-[#ff6709] hover:bg-orange-500 text-white font-semibold py-2 px-4 rounded-lg transition ${AddmemberLoading ? "opacity-50 cursor-not-allowed" : ""}`}
           >
-            Add Member
+            {AddmemberLoading ? "Adding..." : "Add Member"}
           </button>
         </form>
       </div>
